@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'dart:convert';
 
@@ -30,9 +30,37 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    getQuotes();
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.format_quote),
+            SizedBox(width: 5.0,),
+            Text("Quotes"),
+          ],
+        ),
+      ),
+      body: FutureBuilder(future: getQuotes(), builder: (context, snapshot){
+        if(snapshot.connectionState == ConnectionState.done){
+          return ListView.builder(
+            itemCount: quotes.length,
+            itemBuilder: (context, index){
+              return ListTile(
+                title: Text("${quotes[index].quote} ${quotes[index].author}"),
+              );
+          });
+        }
+        else{
+          return Center(
+            child: CircularProgressIndicator(
+              color: Colors.blue,
+            ),
+          );
+        }
+      }),
     );
   }
 }
