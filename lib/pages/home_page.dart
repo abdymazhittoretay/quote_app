@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:quote_app/model/quote.dart';
+import 'package:quote_app/pages/widgets/quote_card.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -19,14 +20,11 @@ class _HomePageState extends State<HomePage> {
   Future getQuotes() async {
     final response = await http.get(Uri.https("zenquotes.io", "/api/quotes"));
     final data = jsonDecode(response.body);
-    for(var i in data){
+    for (var i in data) {
       final Quote quote = Quote(quote: i["q"], author: i["a"]);
       quotes.add(quote);
     }
-
-    print(quotes);
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -38,29 +36,32 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(Icons.format_quote),
-            SizedBox(width: 5.0,),
+            SizedBox(
+              width: 5.0,
+            ),
             Text("Quotes"),
           ],
         ),
       ),
-      body: FutureBuilder(future: getQuotes(), builder: (context, snapshot){
-        if(snapshot.connectionState == ConnectionState.done){
-          return ListView.builder(
-            itemCount: quotes.length,
-            itemBuilder: (context, index){
-              return ListTile(
-                title: Text("${quotes[index].quote} ${quotes[index].author}"),
+      body: FutureBuilder(
+          future: getQuotes(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              return ListView.builder(
+                  itemCount: quotes.length,
+                  itemBuilder: (context, index) {
+                    return QuoteCard(
+                        quote: quotes[index].quote,
+                        author: quotes[index].author);
+                  });
+            } else {
+              return Center(
+                child: CircularProgressIndicator(
+                  color: Colors.blue,
+                ),
               );
-          });
-        }
-        else{
-          return Center(
-            child: CircularProgressIndicator(
-              color: Colors.blue,
-            ),
-          );
-        }
-      }),
+            }
+          }),
     );
   }
 }
