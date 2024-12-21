@@ -16,6 +16,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<Quote> quotes = [];
+  List<Quote> favQuotes = [];
 
   Future getQuotes() async {
     final response = await http.get(Uri.https("zenquotes.io", "/api/quotes"));
@@ -33,7 +34,6 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(Icons.format_quote),
             SizedBox(
@@ -42,6 +42,9 @@ class _HomePageState extends State<HomePage> {
             Text("Quotes"),
           ],
         ),
+        actions: [IconButton(
+          tooltip: "Favourite",
+          onPressed: () {}, icon: Icon(Icons.favorite))],
       ),
       body: FutureBuilder(
           future: getQuotes(),
