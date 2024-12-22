@@ -17,8 +17,10 @@ class QuoteCard extends StatelessWidget {
       padding: EdgeInsets.all(10.0),
       child: Row(
         children: [
-          IconButton(onPressed: (){}, icon: Icon(Icons.favorite_outline)),
-          SizedBox(width: 10.0,),
+          IconButton(onPressed: () {}, icon: Icon(Icons.favorite_outline)),
+          SizedBox(
+            width: 10.0,
+          ),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

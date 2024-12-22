@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:quote_app/model/quote.dart';
+import 'package:quote_app/pages/favourites_page.dart';
 import 'package:quote_app/pages/widgets/quote_card.dart';
 
 class HomePage extends StatefulWidget {
@@ -33,6 +34,7 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
+        surfaceTintColor: Colors.white,
         title: Row(
           children: [
             Icon(Icons.format_quote),
@@ -42,9 +44,19 @@ class _HomePageState extends State<HomePage> {
             Text("Quotes"),
           ],
         ),
-        actions: [IconButton(
-          tooltip: "Favourite",
-          onPressed: () {}, icon: Icon(Icons.favorite))],
+        actions: [
+          IconButton(
+              tooltip: "Favourite",
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          FavouritesPage(favQuotes: favQuotes)),
+                );
+              },
+              icon: Icon(Icons.favorite))
+        ],
       ),
       body: FutureBuilder(
           future: getQuotes(),
