@@ -5,7 +5,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:quote_app/model/quote.dart';
-import 'package:quote_app/pages/favourites_page.dart';
 import 'package:quote_app/pages/widgets/quote_card.dart';
 
 class HomePage extends StatefulWidget {
@@ -17,7 +16,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<Quote> quotes = [];
-  List<Quote> favQuotes = [];
 
   Future getQuotes() async {
     final response = await http.get(Uri.https("zenquotes.io", "/api/quotes"));
@@ -35,20 +33,15 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         surfaceTintColor: Colors.white,
-        title: Text("Quotes"),
-        actions: [
-          IconButton(
-              tooltip: "Favourite",
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          FavouritesPage(favQuotes: favQuotes)),
-                );
-              },
-              icon: Icon(Icons.favorite))
-        ],
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.format_quote),
+            SizedBox(width: 5.0,),
+            Text("Quotes"),
+          ],
+        ),
+        centerTitle: true,
       ),
       body: FutureBuilder(
           future: getQuotes(),
@@ -58,8 +51,9 @@ class _HomePageState extends State<HomePage> {
                   itemCount: quotes.length,
                   itemBuilder: (context, index) {
                     return QuoteCard(
-                        quote: quotes[index].quote,
-                        author: quotes[index].author);
+                      quote: quotes[index].quote,
+                      author: quotes[index].author,
+                    );
                   });
             } else {
               return Center(
