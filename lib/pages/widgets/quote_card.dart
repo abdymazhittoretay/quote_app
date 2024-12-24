@@ -5,8 +5,15 @@ import 'package:flutter/material.dart';
 class QuoteCard extends StatelessWidget {
   final String quote;
   final String author;
+  final bool isFavorite;
+  final void Function()? onPressed;
 
-  const QuoteCard({super.key, required this.quote, required this.author});
+  const QuoteCard(
+      {super.key,
+      required this.quote,
+      required this.author,
+      required this.isFavorite,
+      required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +24,11 @@ class QuoteCard extends StatelessWidget {
       padding: EdgeInsets.all(10.0),
       child: Row(
         children: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.favorite_border)),
+          IconButton(
+              onPressed: onPressed,
+              icon: isFavorite
+                  ? Icon(Icons.favorite)
+                  : Icon(Icons.favorite_border)),
           SizedBox(
             width: 5.0,
           ),

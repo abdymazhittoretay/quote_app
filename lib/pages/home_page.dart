@@ -58,9 +58,21 @@ class _HomePageState extends State<HomePage> {
               return ListView.builder(
                   itemCount: quotes.length,
                   itemBuilder: (context, index) {
+                    final Quote quote = quotes[index];
+                    final bool isFavorite = favQuotes.contains(quote);
                     return QuoteCard(
-                      quote: quotes[index].quote,
-                      author: quotes[index].author,
+                      quote: quote.quote,
+                      author: quote.author,
+                      isFavorite: isFavorite,
+                      onPressed: () {
+                        setState(() {
+                          if (favQuotes.contains(quote)) {
+                            favQuotes.remove(quote);
+                          } else {
+                            favQuotes.add(quote);
+                          }
+                        });
+                      },
                     );
                   });
             } else {
