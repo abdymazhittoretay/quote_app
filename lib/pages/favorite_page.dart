@@ -3,11 +3,16 @@
 import 'package:flutter/material.dart';
 import 'package:quote_app/model/quote.dart';
 
-class FavoritePage extends StatelessWidget {
+class FavoritePage extends StatefulWidget {
   final List<Quote> favQuotes;
 
   const FavoritePage({super.key, required this.favQuotes});
 
+  @override
+  State<FavoritePage> createState() => _FavoritePageState();
+}
+
+class _FavoritePageState extends State<FavoritePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,13 +23,49 @@ class FavoritePage extends StatelessWidget {
         title: Text("Favorites"),
         centerTitle: true,
       ),
-      body: favQuotes.isNotEmpty
+      body: widget.favQuotes.isNotEmpty
           ? ListView.builder(
-              itemCount: favQuotes.length,
+              itemCount: widget.favQuotes.length,
               itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(favQuotes[index].quote),
-                  subtitle: Text(favQuotes[index].author),
+                final Quote quote = widget.favQuotes[index];
+                return Container(
+                  decoration: BoxDecoration(
+                      color: Colors.blue[100],
+                      borderRadius: BorderRadius.circular(10.0)),
+                  margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+                  padding: EdgeInsets.all(10.0),
+                  child: Row(
+                    children: [
+                      IconButton(
+                          onPressed: () {
+                            setState(() {
+                              widget.favQuotes.remove(quote);
+                            });
+                          },
+                          icon: Icon(
+                            Icons.favorite,
+                            color: Colors.red,
+                          )),
+                      SizedBox(
+                        width: 10.0,
+                      ),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(quote.quote),
+                            SizedBox(
+                              height: 10.0,
+                            ),
+                            Align(
+                              alignment: Alignment.bottomRight,
+                              child: Text(quote.author),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 );
               })
           : Center(

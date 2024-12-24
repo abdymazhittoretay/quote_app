@@ -45,7 +45,9 @@ class _HomePageState extends State<HomePage> {
                     builder: (context) => FavoritePage(
                       favQuotes: favQuotes,
                     ),
-                  ));
+                  )).then((_) {
+                setState(() {});
+              });
             },
             icon: Icon(Icons.favorite),
           ),
