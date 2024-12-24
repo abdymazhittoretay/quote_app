@@ -26,6 +26,14 @@ class _HomePageState extends State<HomePage> {
       final Quote quote = Quote(quote: i["q"], author: i["a"]);
       quotes.add(quote);
     }
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    getQuotes();
   }
 
   @override
@@ -53,38 +61,32 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      body: FutureBuilder(
-          future: getQuotes(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              return ListView.builder(
-                  itemCount: quotes.length,
-                  itemBuilder: (context, index) {
-                    final Quote quote = quotes[index];
-                    final bool isFavorite = favQuotes.contains(quote);
-                    return QuoteCard(
-                      quote: quote.quote,
-                      author: quote.author,
-                      isFavorite: isFavorite,
-                      onPressed: () {
-                        setState(() {
-                          if (favQuotes.contains(quote)) {
-                            favQuotes.remove(quote);
-                          } else {
-                            favQuotes.insert(0, quote);
-                          }
-                        });
-                      },
-                    );
-                  });
-            } else {
-              return Center(
-                child: CircularProgressIndicator(
-                  color: Colors.blue,
-                ),
-              );
-            }
-          }),
+      body: quotes.isNotEmpty
+          ? ListView.builder(
+              itemCount: quotes.length,
+              itemBuilder: (context, index) {
+                final Quote quote = quotes[index];
+                final bool isFavorite = favQuotes.contains(quote);
+                return QuoteCard(
+                  quote: quote.quote,
+                  author: quote.author,
+                  isFavorite: isFavorite,
+                  onPressed: () {
+                    setState(() {
+                      if (favQuotes.contains(quote)) {
+                        favQuotes.remove(quote);
+                      } else {
+                        favQuotes.insert(0, quote);
+                      }
+                    });
+                  },
+                );
+              })
+          : Center(
+              child: CircularProgressIndicator(
+                color: Colors.blue,
+              ),
+            ),
     );
   }
 }
