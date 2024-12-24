@@ -15,16 +15,26 @@ class QuoteCard extends StatelessWidget {
           color: Colors.blue[100], borderRadius: BorderRadius.circular(10.0)),
       margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
       padding: EdgeInsets.all(10.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Row(
         children: [
-          Text(quote),
+          IconButton(onPressed: () {}, icon: Icon(Icons.favorite_border)),
           SizedBox(
-            height: 10.0,
+            width: 5.0,
           ),
-          Align(
-            alignment: Alignment.bottomRight,
-            child: Text(author),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(quote),
+                SizedBox(
+                  height: 10.0,
+                ),
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: Text(author),
+                ),
+              ],
+            ),
           ),
         ],
       ),
