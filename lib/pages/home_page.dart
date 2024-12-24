@@ -71,7 +71,7 @@ class _HomePageState extends State<HomePage> {
                           if (favQuotes.contains(quote)) {
                             favQuotes.remove(quote);
                           } else {
-                            favQuotes.add(quote);
+                            favQuotes.insert(0, quote);
                           }
                         });
                       },
