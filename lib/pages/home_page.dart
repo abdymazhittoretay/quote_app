@@ -65,18 +65,23 @@ class _HomePageState extends State<HomePage> {
               itemCount: quotes.length,
               itemBuilder: (context, index) {
                 final Quote quote = quotes[index];
-                final bool isFavorite =
-                    boxFavs.containsKey("key_${quote.quote}_${quote.author}");
+                final bool isFavorite = boxFavs.values.any((fav) =>
+                    fav.quote == quote.quote && fav.author == quote.author);
                 return QuoteCard(
                   quote: quote.quote,
                   author: quote.author,
                   isFavorite: isFavorite,
                   onPressed: () {
                     setState(() {
-                      if (boxFavs.values.contains(quote)) {
-                        boxFavs.delete("key_${quote.quote}_${quote.author}");
+                      if (isFavorite) {
+                        final deleteKey = boxFavs.keys.firstWhere((key) {
+                          final FavQuote fav = boxFavs.get(key);
+                          return fav.quote == quote.quote &&
+                              fav.author == quote.author;
+                        });
+                        boxFavs.delete(deleteKey);
                       } else {
-                        boxFavs.put("key_${quote.quote}_${quote.author}",
+                        boxFavs.add(
                             FavQuote(quote: quote.quote, author: quote.author));
                       }
                     });

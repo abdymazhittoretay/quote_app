@@ -26,7 +26,8 @@ class _FavoritePageState extends State<FavoritePage> {
           ? ListView.builder(
               itemCount: boxFavs.length,
               itemBuilder: (context, index) {
-                final FavQuote quote = boxFavs.getAt(index);
+                final FavQuote quote =
+                    boxFavs.getAt(boxFavs.values.length - 1 - index);
                 return Container(
                   decoration: BoxDecoration(
                       color: Colors.blue[100],
@@ -38,8 +39,12 @@ class _FavoritePageState extends State<FavoritePage> {
                       IconButton(
                           onPressed: () {
                             setState(() {
-                              boxFavs
-                                  .delete("key_${quote.quote}_${quote.author}");
+                              final key = boxFavs.keys.firstWhere((key) {
+                                final FavQuote fav = boxFavs.get(key);
+                                return fav.quote == quote.quote &&
+                                    fav.author == quote.author;
+                              });
+                              boxFavs.delete(key);
                             });
                           },
                           icon: Icon(
