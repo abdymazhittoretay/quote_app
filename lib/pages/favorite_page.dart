@@ -1,12 +1,11 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:quote_app/model/quote.dart';
+import 'package:quote_app/boxes.dart';
+import 'package:quote_app/fav_quote.dart';
 
 class FavoritePage extends StatefulWidget {
-  final List<Quote> favQuotes;
-
-  const FavoritePage({super.key, required this.favQuotes});
+  const FavoritePage({super.key});
 
   @override
   State<FavoritePage> createState() => _FavoritePageState();
@@ -23,11 +22,11 @@ class _FavoritePageState extends State<FavoritePage> {
         title: Text("Favorites"),
         centerTitle: true,
       ),
-      body: widget.favQuotes.isNotEmpty
+      body: boxFavs.isNotEmpty
           ? ListView.builder(
-              itemCount: widget.favQuotes.length,
+              itemCount: boxFavs.length,
               itemBuilder: (context, index) {
-                final Quote quote = widget.favQuotes[index];
+                final FavQuote quote = boxFavs.getAt(index);
                 return Container(
                   decoration: BoxDecoration(
                       color: Colors.blue[100],
@@ -39,7 +38,8 @@ class _FavoritePageState extends State<FavoritePage> {
                       IconButton(
                           onPressed: () {
                             setState(() {
-                              widget.favQuotes.remove(quote);
+                              boxFavs
+                                  .delete("key_${quote.quote}_${quote.author}");
                             });
                           },
                           icon: Icon(
