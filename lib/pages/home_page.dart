@@ -44,7 +44,15 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         surfaceTintColor: Colors.white,
-        title: Text("Quotes"),
+        title: Row(
+          children: [
+            Icon(Icons.format_quote),
+            SizedBox(
+              width: 5.0,
+            ),
+            Text("Quotes"),
+          ],
+        ),
         actions: [
           IconButton(
             onPressed: () {
