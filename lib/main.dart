@@ -2,8 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:quote_app/boxes.dart';
-import 'package:quote_app/fav_quote.dart';
+import 'package:quote_app/database/boxes.dart';
+import 'package:quote_app/model/fav_quote.dart';
 import 'package:quote_app/pages/home_page.dart';
 
 void main() async {

@@ -1,8 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:quote_app/boxes.dart';
-import 'package:quote_app/fav_quote.dart';
+import 'package:quote_app/database/boxes.dart';
+import 'package:quote_app/model/fav_quote.dart';
 
 class FavoritePage extends StatefulWidget {
   const FavoritePage({super.key});

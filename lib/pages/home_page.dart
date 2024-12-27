@@ -4,8 +4,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:quote_app/boxes.dart';
-import 'package:quote_app/fav_quote.dart';
+import 'package:quote_app/database/boxes.dart';
+import 'package:quote_app/model/fav_quote.dart';
 import 'package:quote_app/model/quote.dart';
 import 'package:quote_app/pages/favorite_page.dart';
 import 'package:quote_app/pages/widgets/quote_card.dart';

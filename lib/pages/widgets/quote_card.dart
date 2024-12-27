@@ -27,7 +27,10 @@ class QuoteCard extends StatelessWidget {
           IconButton(
               onPressed: onPressed,
               icon: isFavorite
-                  ? Icon(Icons.favorite, color: Colors.red,)
+                  ? Icon(
+                      Icons.favorite,
+                      color: Colors.red,
+                    )
                   : Icon(Icons.favorite_border)),
           SizedBox(
             width: 5.0,
